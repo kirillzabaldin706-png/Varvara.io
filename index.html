@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ресторан «Уютный уголок»</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="logo"><h1>🍽️ Уютный уголок</h1><p>Ресторан домашней кухни</p></div>
+    <nav><ul>
+      <li><a href="index.html" class="active">Главная</a></li>
+      <li><a href="menu.html">Меню</a></li>
+      <li><a href="about.html">О ресторане</a></li>
+      <li><a href="booking.html">Бронирование</a></li>
+      <li><a href="contacts.html">Контакты</a></li>
+    </ul></nav>
+    <div class="header-right">
+      <div class="contact-info"><p>📞 +7 (495) 123-45-67</p><p>📧 info@cozy-corner.ru</p></div>
+      <a href="#" class="cart-btn-header" onclick="openCart();return false;">🛒 Корзина<span class="cart-badge">0</span></a>
+      <a href="admin.html" class="admin-header-btn">⚙️ Админка</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>Добро пожаловать в «Уютный уголок»!</h1>
+    <p>Где каждое блюдо готовится с любовью</p>
+    <a href="booking.html" class="btn btn-primary">Забронировать столик</a>
+    <a href="menu.html" class="btn">Посмотреть меню</a>
+  </div>
+</section>
+
+<section class="promotions">
+  <div class="container">
+    <h2 class="section-title">🔥 Наши акции</h2>
+    <div class="promotions-grid">
+      <div class="promotion-card"><div class="promo-icon">🎉</div><h3>День рождения</h3><p>Скидка 20% на весь чек для именинников!</p><span class="promo-badge">-20%</span></div>
+      <div class="promotion-card"><div class="promo-icon">🍷</div><h3>Винный вечер</h3><p>Каждую пятницу дегустация вин от 500₽</p><span class="promo-badge">Пятница</span></div>
+      <div class="promotion-card"><div class="promo-icon">👨‍🍳</div><h3>Бизнес-ланч</h3><p>Сытный обед всего за 390₽ с 12:00 до 16:00</p><span class="promo-badge">390₽</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2 class="section-title">⭐ Популярные блюда</h2>
+    <div class="dishes-grid" id="popular-dishes"></div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="container">
+    <h2 class="section-title">💬 Отзывы гостей</h2>
+    <div class="reviews-grid">
+      <div class="review-card"><div class="review-rating">⭐⭐⭐⭐⭐</div><p class="review-text">«Отличная кухня! Стейк просто тает во рту»</p><p class="review-author">— Анна, Москва</p></div>
+      <div class="review-card"><div class="review-rating">⭐⭐⭐⭐⭐</div><p class="review-text">«Уютная атмосфера, обслуживание на высоте»</p><p class="review-author">— Дмитрий, Санкт-Петербург</p></div>
+      <div class="review-card"><div class="review-rating">⭐⭐⭐⭐⭐</div><p class="review-text">«Лучшая паста в городе! Приезжаю каждую неделю»</p><p class="review-author">— Екатерина, Екатеринбург</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><h3>Уютный уголок</h3><p>Ресторан домашней кухни в самом сердце города</p></div>
+      <div class="footer-col"><h3>Быстрые ссылки</h3><ul><li><a href="menu.html">Меню</a></li><li><a href="about.html">О ресторане</a></li><li><a href="booking.html">Бронирование</a></li><li><a href="contacts.html">Контакты</a></li></ul></div>
+      <div class="footer-col"><h3>Контакты</h3><p>ул. Гастрономическая, 15</p><p>Москва, 123456</p><p>+7 (495) 123-45-67</p></div>
+      <div class="footer-col"><h3>Документы</h3><ul><li><a href="privacy.html">Политика конфиденциальности</a></li><li><a href="terms.html">Пользовательское соглашение</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Уютный уголок. Все права защищены. &nbsp;|&nbsp; <a href="privacy.html" style="color:#bdc3c7">Конфиденциальность</a> &nbsp;|&nbsp; <a href="terms.html" style="color:#bdc3c7">Соглашение</a></p></div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="cart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const menu = getMenu();
+  const popular = menu.items.filter(i => i.category === 'main').slice(0, 3);
+  document.getElementById('popular-dishes').innerHTML = popular.map(item => `
+    <div class="dish-card">
+      ${item.image ? `<img src="${item.image}" alt="${item.name}" class="dish-image" onerror="this.style.background='linear-gradient(135deg,#667eea,#764ba2)';this.src=''">` : `<div class="dish-image" style="background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:white;font-size:40px">🍽️</div>`}
+      <div class="dish-info">
+        <h3>${item.name}</h3><p>${item.desc}</p>
+        <div class="dish-actions"><span class="dish-price">${item.price.toLocaleString('ru')}₽</span><button class="add-to-cart-btn" onclick="addToCart(${item.id})">+ В корзину</button></div>
+      </div>
+    </div>
+  `).join('');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Меню — Ресторан «Уютный уголок»</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="logo"><h1>🍽️ Уютный уголок</h1><p>Ресторан домашней кухни</p></div>
+    <nav><ul>
+      <li><a href="index.html">Главная</a></li>
+      <li><a href="menu.html" class="active">Меню</a></li>
+      <li><a href="about.html">О ресторане</a></li>
+      <li><a href="booking.html">Бронирование</a></li>
+      <li><a href="contacts.html">Контакты</a></li>
+    </ul></nav>
+    <div class="header-right">
+      <div class="contact-info"><p>📞 +7 (495) 123-45-67</p><p>📧 info@cozy-corner.ru</p></div>
+      <a href="#" class="cart-btn-header" onclick="openCart();return false;">🛒 Корзина<span class="cart-badge">0</span></a>
+      <a href="admin.html" class="admin-header-btn">⚙️ Админка</a>
+    </div>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="container">
+    <h1>📖 Наше меню</h1>
+    <p>Только свежие ингредиенты и домашние рецепты</p>
+  </div>
+</section>
+
+<div id="menu-content"></div>
+
+<div style="text-align:center;padding:40px">
+  <a href="booking.html" class="btn btn-primary">Забронировать столик</a>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><h3>Уютный уголок</h3><p>Ресторан домашней кухни</p></div>
+      <div class="footer-col"><h3>Быстрые ссылки</h3><ul><li><a href="index.html">Главная</a></li><li><a href="about.html">О ресторане</a></li><li><a href="booking.html">Бронирование</a></li><li><a href="contacts.html">Контакты</a></li></ul></div>
+      <div class="footer-col"><h3>Контакты</h3><p>ул. Гастрономическая, 15</p><p>Москва, 123456</p><p>+7 (495) 123-45-67</p></div>
+      <div class="footer-col"><h3>Документы</h3><ul><li><a href="privacy.html">Политика конфиденциальности</a></li><li><a href="terms.html">Пользовательское соглашение</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Уютный уголок. Все права защищены.</p></div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="cart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const menu = getMenu();
+  const content = document.getElementById('menu-content');
+  content.innerHTML = menu.categories.map(cat => {
+    const items = menu.items.filter(i => i.category === cat.id);
+    if (!items.length) return '';
+    return `
+      <section class="menu-section">
+        <div class="container">
+          <h2 class="menu-category">${cat.name}</h2>
+          <div class="menu-items">
+            ${items.map(item => `
+              <div class="menu-item">
+                <div class="menu-item-img-wrap">
+                  ${item.image ? `<img src="${item.image}" alt="${item.name}" class="menu-item-image" onerror="this.parentElement.innerHTML='🍽️'">` : cat.emoji}
+                </div>
+                <div class="menu-item-info">
+                  <h3>${item.name}</h3>
+                  <p>${item.desc}</p>
+                  <div class="menu-item-bottom">
+                    <span class="menu-item-price">${item.price.toLocaleString('ru')}₽</span>
+                    <button class="add-to-cart-btn" onclick="addToCart(${item.id})">+ В корзину</button>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </section>`;
+  }).join('');
+});
+</script>
+</body>
+</html>
